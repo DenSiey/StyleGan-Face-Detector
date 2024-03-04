@@ -5,3 +5,4 @@ Pillow==10.2.0
 tensorflow==2.15.0.post1
 firebase-admin==6.4.0
 gunicorn==20.1.0
+firebase
