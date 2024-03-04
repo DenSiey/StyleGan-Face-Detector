@@ -1,0 +1,9 @@
+numpy
+gdown 
+flask
+Pillow  
+tensorflow  
+firebase-admin
+os
+gunicorn
+io
