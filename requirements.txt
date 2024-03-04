@@ -1,6 +1,3 @@
-os
-gunicorn
-io
 numpy==1.26.4
 gdown==5.1.0
 flask==3.0.2
