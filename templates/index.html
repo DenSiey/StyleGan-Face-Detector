@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap">
+    <link rel="icon" href="{{ url_for('static', filename='images/page_logo.svg') }}" type="image/x-icon">
+    <title>StyleGan Face Detector</title>
+</head>
+<body>
+    <div class="gradient"></div>
+    <div id="bg">
+        <div id="form">
+            <form action='/', method="post" enctype="multipart/form-data" action="" id="img_form">
+                <div id="img">
+                    <div id="loader_div">
+                        <div class="loader"></div>
+                        <label>Analyzing...</label>
+                    </div>
+                    {% if selected_image %}
+                        <img src="{{ selected_image }}" alt="upload_bg" id="img_url">
+                    {% else %}
+                        <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="upload_bg" id="img_url">
+                    {% endif %}
+                </div>
+                <div id="input">
+                    <label id="browse_img" for="inputTag" style="cursor: pointer;">
+                        Select Image
+                        <input hidden type="file" id="select_img" name="imagefile">
+                    </label>
+                    <input hidden type="file" name="selected_image" id="selected_image" value="{{ selected_image }}">
+                </div>
+                <button type="submit" id="detect">Detect</button>
+                {% if error_message %}
+                    <p id="error-message" style="color: #d90429"><br>{{ error_message }}</p>
+                {% endif %}
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div id="flash-messages">
+                            {% for category, message in messages %}
+                                <div class="flash-message {{ category }}">
+                                    <p><br></p>{{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+            </form>
+        </div>
+        <div id="info">
+            <h1>StyleGan Face Detector</h1>
+            <p id="text1">Check whether an image is StyleGan-Generated or not.<br>
+                Be ware of fake faces!</p>
+            <p id="text2"><strong>Real or Fake?</strong><br>
+                Unmask the real from the fake with StyleGan Face Detector. 
+                In a world of digital twists, ensure the faces you encounter are genuine.</strong></p>
+            <br>
+
+            {% if prediction%}
+                <p id="text3">Result:</p>
+                <div id="prediction_result">
+                    <p id="result2"><strong>Image is</strong></p>
+                    {% if 'StyleGan' in prediction %}
+                        <p id="result" style="color: #d90429;"><strong>{{prediction}}</strong></p>
+                    {% else %}
+                        <p id="result" style="color: #003049;"><strong>{{prediction}}</strong></p>
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div id="percent_result">
+                {% if result1 %}
+                        <p id="result1"><i><strong>{{result1}}</strong></i></p>
+                {% endif %}
+                {% if result2 %}
+                <p id="result1"><i><strong>|</strong></i></p>
+                        <p id="result1"><i><strong>{{result2}}</strong></i></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</body>
+<script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</html>
