@@ -1,9 +1,9 @@
-numpy
-gdown 
-flask
-Pillow  
-tensorflow  
-firebase-admin
 os
 gunicorn
 io
+numpy==1.26.4
+gdown==5.1.0
+flask==3.0.2
+Pillow==10.2.0
+tensorflow==2.15.0.post1
+firebase-admin==6.4.0
